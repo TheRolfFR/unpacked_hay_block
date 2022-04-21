@@ -29,8 +29,8 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
+          tag: 'latest'
           file: out/*.zip
-          asset_name: unpacked-hay-block
           file_glob: true
           overwrite: true
-          body: "This is my release text"
+          body: "Free your hay blocks! 32x and 64x resource pack add-on"
