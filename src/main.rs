@@ -1,5 +1,5 @@
 use std::io::{Write, Read};
-use std::fs::{File, OpenOptions};
+use std::fs::{File, OpenOptions, self};
 
 use image::{self, DynamicImage};
 use image::imageops::FilterType;
@@ -18,9 +18,14 @@ const THUMBNAIL_BG: &str = "./assets/thumbnail_background.png";
 const PREVIEW_SIZE: u32 = 430;
 const SPACING: u32 = 100;
 
+const OUT_DIR: &str = "./out";
+
 fn main() {
     let mut preview_vector = Vec::new();
-    
+
+    println!("Create output directory...");
+    fs::create_dir_all(OUT_DIR).unwrap();
+
     for input in IMG_IN {
         let res = input.0;
 
