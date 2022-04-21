@@ -10,9 +10,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Build
-      - uses: actions-rs/toolchain@v1
+        uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
       - uses: actions-rs/cargo@v1
@@ -29,7 +30,7 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: out/*.zip
-          asset_name: mything
+          asset_name: unpacked-hay-block
           file_glob: true
           overwrite: true
           body: "This is my release text"
