@@ -14,7 +14,6 @@ fn main() -> Result<(), std::io::Error> {
     let force = arg_list.get(1)
         .map(|f| { f == "-f" || f == "--force" })
         .unwrap_or(false);
-    println!("Hello!");
 
     if force {
         println!("Forced update with force flag");
