@@ -6,7 +6,8 @@ use image::{DynamicImage, ImageError, ImageResult, imageops::FilterType};
 pub struct TextureDefinition<'a> {
   pub name: &'a str,
   pub paths: &'a[(&'a str, &'a str)],
-  pub version_paths: &'a[(&'a str, &'a str)]
+  pub version_paths: &'a[(&'a str, &'a str)],
+  pub id: i32
 }
 
 #[derive(Debug, Default, Clone)]
@@ -26,6 +27,10 @@ impl Texture {
     }
 
     Ok(res)
+  }
+
+  pub fn images(&self) -> &Vec<(DynamicImage, String)>{
+    return self.images.as_ref();
   }
 
   pub fn manipulate<F>(&self, func: F) -> Self where F: Fn(&mut DynamicImage) -> () {

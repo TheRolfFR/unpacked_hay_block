@@ -2,6 +2,7 @@
 name = "unpacked_hay_block"
 version = "0.1.0"
 edition = "2021"
+default-run = "main"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -9,4 +10,14 @@ edition = "2021"
 png = "0"
 image = "0"
 zip = "0"
-oxipng = "5.0.1"
+oxipng = "6.0.1"
+tempdir = "0"
+reqwest = { version = "0", features=["blocking"] }
+
+[[bin]]
+name = "main"
+path = "src/main.rs"
+
+[[bin]]
+name = "updater"
+path = "src/updater.rs"

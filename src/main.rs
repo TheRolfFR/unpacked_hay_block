@@ -4,38 +4,15 @@ use image::{self, DynamicImage};
 
 mod minecraft;  
 use minecraft::texture::texture::*;
-use minecraft::pack::{Pack, PackDefinition};
+use minecraft::pack::{Pack};
 
 // Add-on thumbnail
 mod thumbnail;
 use thumbnail::*;
 
-const FIRST_VERSION: &str = "1.6.1";
-const RESOLUTIONS: [u32; 2] = [32, 64];
+use crate::constants::*;
 
-const PACK_NAME_PREFIX: &str = "unpacked-hay-block-";
-
-const TEXTURE_DEF: TextureDefinition = TextureDefinition {
-    name: "hay_block",
-    paths: [
-        ("./assets/32.png", "./out/32.png"),
-        ("./assets/64.png", "./out/64.png")
-    ].as_slice(),
-    version_paths: [
-        (FIRST_VERSION, "assets/minecraft/textures/blocks/hay_block_side.png"),
-        ("1.13", "assets/minecraft/textures/block/hay_block_side.png")
-    ].as_slice()
-};
-
-const THUMBNAIL_BG: &str = "./assets/thumbnail_background.png";
-const PREVIEW_SIZE: u32 = 430u32;
-const OUT_DIR: &str = "./out/";
-const OUT_THUMBNAIL_NAME: &str = "thumbnail.png";
-
-const PACK_DEF: &PackDefinition = &PackDefinition {
-    comment: "Pack by TheRolf",
-    description: "Free your hay bales! 32x and 64x resource pack add-on"
-};
+mod constants;
 
 fn main() {
     println!("STEP 0 : Create output directory");

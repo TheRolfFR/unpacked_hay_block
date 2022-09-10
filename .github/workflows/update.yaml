@@ -1,0 +1,56 @@
+name: Auto updater
+
+on:
+  # Triggers the workflow every month
+  schedule:
+    - cron: "* * * 1 *"
+
+  # Leave choice to update manually
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - name: Build
+        uses: actions-rs/cargo@v1
+        with:
+          command: run
+          args: --release --bin updater -- ${{ github.event_name == 'workflow_dispatch' && '-f' || '' }}
+      - name: Check file existence
+        id: check_files
+        uses: andstor/file-existence-action@v1
+        with:
+          files: "out/new_assets_folder"
+
+  update:
+    runs-on: ubuntu-latest
+    needs: check
+    if: jobs.check.steps.check_files.outputs.files_exists == 'success'
+    steps:
+      - name: copy images
+        run: cp -r $(cat out/new_assets_folder)/** .
+      - name: "Set commit message"
+        env:
+          COMMIT_VAR: ${{ github.event_name == 'workflow_dispatch' }}
+        run: |
+          if ${COMMIT_VAR} == true; then
+            echo "message='Forced'" >> $GITHUB_ENV
+          else
+            echo "message=''" >> $GITHUB_ENV
+          fi
+      - name: Add and update
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: 'assets/'
+          message: '${{ env.message }} Auto-update: Updated assets'
+          push: true
+
+
+      
