@@ -3,7 +3,7 @@ name: Auto updater
 on:
   # Triggers the workflow every month
   schedule:
-    - cron: "* * * 1 *"
+    - cron: "0 9 1 * *"
 
   # Leave choice to update manually
   workflow_dispatch:
